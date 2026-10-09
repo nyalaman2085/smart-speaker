@@ -762,3 +762,7 @@ button {
     padding: 12px;
   }
 }
+
+@media (min-width: 761px) {
+  #menu-toggle { display: none; }
+}
