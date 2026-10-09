@@ -1,30 +1,34 @@
-# Pulse One Smart Speaker Landing Page
+# Pulse One — Smart Speaker Landing Page Concept
 
-A responsive product landing page built with plain HTML and CSS.
+A responsive product landing-page concept built with plain HTML, CSS, and browser JavaScript.
 
-## Preview
+**Pulse One is a fictional product concept.** Battery life, audio, connectivity, voice assistant, and other product statements are illustrative design copy, not verified specifications for a real device.
 
-This project showcases a smart speaker product page with:
+## Features
 
-- a hero section with product-focused messaging
-- a custom CSS-rendered speaker mockup
-- feature cards and product details
-- responsive layout for desktop and mobile screens
+- Responsive product landing page with CSS-rendered speaker mockup
+- Feature, sound, and shop sections
+- Search dialog that filters sections on the page
+- Responsive navigation menu with an accessible expanded state
+- Keyboard focus styling and native dialog behavior
 
-## Files
+## Run locally
 
-- `index.html` - page structure and content
-- `style.css` - layout, visual styling, responsive rules, and product rendering
+\`\`\`bash
+python3 -m http.server 8000
+\`\`\`
 
-## How To Run
+Open http://localhost:8000/.
 
-Open `index.html` in any modern browser.
+## Project structure
 
-## Notes
+- \`index.html\` — page markup and interactions
+- \`style.css\` — responsive layout, styling, mockup, dialog, and menu states
 
-- No frameworks or build tools are required
-- The page is designed as a static showcase/portfolio project
+## Scope
 
-## Author
+This is a static frontend design project. It has no real product inventory, checkout, speaker hardware integration, voice assistant backend, or account system. The purchase-style calls to action navigate within the concept page rather than placing an order.
 
-Created by Nitin
+## Tech stack
+
+HTML5 · CSS · JavaScript · native HTML dialog

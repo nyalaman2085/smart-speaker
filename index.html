@@ -18,19 +18,28 @@
         </nav>
 
         <div class="topbar-actions">
-          <button class="icon-button" type="button" aria-label="Search">
+          <button class="icon-button" id="search-open" type="button" aria-label="Search page content" aria-haspopup="dialog">
             <span class="icon-search" aria-hidden="true"></span>
           </button>
-          <button class="icon-button" type="button" aria-label="Menu">
+          <button class="icon-button" id="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
             <span class="icon-menu" aria-hidden="true"></span>
           </button>
         </div>
       </header>
 
+      <dialog class="site-search-dialog" id="site-search" aria-labelledby="site-search-title">
+        <form method="dialog" class="search-dialog-close"><button type="submit" aria-label="Close search">Close</button></form>
+        <h2 id="site-search-title">Search Pulse One</h2>
+        <label for="site-search-input">Find a feature or section</label>
+        <input id="site-search-input" type="search" placeholder="Try sound, privacy, battery…" />
+        <p id="site-search-status" role="status" aria-live="polite"></p>
+        <ul id="site-search-results"></ul>
+      </dialog>
+
       <main id="home">
         <section class="hero">
           <div class="hero-copy">
-            <p class="eyebrow">Voice-first audio for modern rooms</p>
+            <p class="eyebrow">Fictional product concept · illustrative specifications</p>
             <h1>Smart sound that feels as good as it looks.</h1>
             <p class="hero-text">
               Meet the speaker built to fill your room with deep bass, clear
@@ -39,7 +48,7 @@
             </p>
 
             <div class="hero-actions">
-              <a class="button button-primary" href="#shop">Buy Now</a>
+              <a class="button button-primary" href="#shop">Explore Concept</a>
               <a class="button button-secondary" href="#features"
                 >See Features</a
               >
@@ -153,9 +162,59 @@
             <p class="eyebrow">Ready for an upgrade?</p>
             <h2>Bring cinematic sound and smart control home today.</h2>
           </div>
-          <a class="button button-primary" href="#home">Order Pulse One</a>
+          <a class="button button-primary" href="#home">Explore Features</a>
         </section>
       </main>
     </div>
+      <script>
+        const nav = document.querySelector(".nav");
+        const menuToggle = document.querySelector("#menu-toggle");
+        menuToggle.addEventListener("click", () => {
+          const expanded = menuToggle.getAttribute("aria-expanded") === "true";
+          menuToggle.setAttribute("aria-expanded", String(!expanded));
+          nav.classList.toggle("is-open", !expanded);
+        });
+        nav.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            nav.classList.remove("is-open");
+            menuToggle.setAttribute("aria-expanded", "false");
+          });
+        });
+
+        const dialog = document.querySelector("#site-search");
+        const searchInput = document.querySelector("#site-search-input");
+        const results = document.querySelector("#site-search-results");
+        const status = document.querySelector("#site-search-status");
+        const sections = [...document.querySelectorAll("main section")];
+        document.querySelector("#search-open").addEventListener("click", () => {
+          dialog.showModal();
+          searchInput.focus();
+        });
+        searchInput.addEventListener("input", () => {
+          const query = searchInput.value.trim().toLowerCase();
+          results.replaceChildren();
+          if (!query) {
+            status.textContent = "Enter a word to search this concept page.";
+            return;
+          }
+          const matches = sections.filter((section) => section.innerText.toLowerCase().includes(query));
+          status.textContent = matches.length
+            ? matches.length + " matching section(s)."
+            : "No matching sections. Try another keyword.";
+          matches.forEach((section) => {
+            const item = document.createElement("li");
+            const link = document.createElement("a");
+            const heading = section.querySelector("h1, h2, h3");
+            link.href = "#" + (section.id || "home");
+            link.textContent = heading ? heading.textContent : "Hero";
+            link.addEventListener("click", () => dialog.close());
+            item.append(link);
+            results.append(item);
+          });
+        });
+        dialog.addEventListener("click", (event) => {
+          if (event.target === dialog) dialog.close();
+        });
+      </script>
   </body>
 </html>
